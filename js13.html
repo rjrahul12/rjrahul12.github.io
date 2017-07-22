@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> 2048 Game</title>
+</head>
+<body>
+		<div class="header">
+				
+					<div class="left"> 2048 </div>
+					<div id="scorer"><div class="text"> Score </div> 
+					<center><div id="score"></div></center>
+					</div>
+					<div id="best"><div class="text"> Best </div>
+					<center><div id="score1"></div></center>
+					</div>
+					
+					
+					<button id="a"> New Game  </button>
+					<div id="setButton">
+					<input id="set" type="text" value="4" placeholder="4">
+					<button id="s"> Set </button>
+					</div>
+		</div>
+		
+		<table id="table">
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+		<div class="error-messages"></div>
+		
+		<!-- <button id="reset"> Reset  </button> -->
+		
+		<div class="instructions">
+				<strong> HOW TO PLAY: </strong> Use your <strong> arrow keys </strong> to move the tiles. When two tiles with the same number touch, they <strong> merge into one! </strong>
+				<div class="footer">
+				Created By <stong> Rahul Jain </stong>
+			</div>
+		</div>
+
+			
+</body>
+<style type="text/css">
+	body{
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-color: #faf8ef;
+	}
+	
+	table{
+		position: absolute;
+		top: 180px;
+		left: 400px;
+		height: 400px;
+		width: 400px;
+		background: #fff;
+		border: 8px solid #bbada0;
+	      border-collapse: collapse;
+	}
+	td{
+		height: 100px;
+			width: 100px;
+			border: 8px solid #bbada0;
+			background-color: #cdc1b4;
+			position: relative;
+			font-size: 40px;
+			text-align: center;
+			box-sizing: border-box;
+
+	}
+
+	div.error-messages{
+		position: absolute;
+		top: 330px;
+		left: 500px;
+		color: red;
+		font-size: 46px;
+		display: none;
+	}
+	.header{
+			display: flex;
+			width: 40%;
+			
+			position: absolute;
+			top: 40px;
+			left: 340px;
+			justify-content: space-around;
+			padding: 10px;
+			border: 1px solid black;
+		}
+
+		.upper{
+			display: flex;
+			width: 100%;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.left{
+			font-size: 60px;
+			color: #776E65;
+			font-weight: bold;
+		}
+
+		#scorer,#best{
+			display: flex;
+			flex-direction: column;
+			background-color: grey;
+			padding: 5px;
+			border-radius: 4%;
+			background-color: #bbada0;
+			width: 30px;
+		}
+
+		#scoreText{
+			color: #eee4da;
+			font-size: 10px;
+			text-align: center;
+		}
+
+		.lower{
+			color: #776E65;
+			display: flex;
+			justify-content: space-between;
+		}
+	#scorer,#best{
+		
+		
+		background-color: #bbada0;
+		color: white;
+	    width: 40px;
+	    background: #bbada0;
+	    padding: 15px 24px;
+	    
+	    color: #dbc7a3;
+	    
+	    text-align: center;
+	}
+	#score,#score1{
+		margin-top: 10px;
+		font-size: 20px;
+		font-weight: bold;
+		color: white;
+	}
+	#a,#s,#set{
+		
+		padding: 8px 16px;
+		width: 80px;
+	}
+	#setButton{
+		display: flex;
+		flex-direction: column;
+	}
+	#s,#set{
+		
+		width: 60px;
+	}
+	
+	#set{
+		
+		width: 25px;
+	}
+
+	#reset{
+		position: absolute;
+		top: 30px;
+		left: 310px;
+		padding: 16px 16px;
+		width: 80px;
+	}
+	.text{
+		
+	    text-transform: uppercase;
+
+	    font-weight: bold;
+	    line-height: 13px;
+	    text-align: center;
+	    color: #eee4da;
+	}
+
+	.instructions{
+			padding: 5px;
+			color: #776E65;
+			position: absolute;
+			top: 600px;
+			left: 250px;
+			border-bottom: 1px solid #bbada0;
+		}
+
+	.footer{
+		color: #776E65;
+		padding: 5px;
+		text-align: center;
+	}
+</style>
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+	$('document').ready(function(){
+		var td=document.querySelectorAll('td');
+		var table=document.getElementById('table');
+		var score=document.getElementById('score');
+		var score1=document.getElementById('score1');
+		score.innerText="0";
+		score1.innerText="0";
+		function setSize(val){
+			for(var i=0;i<val;i++)
+			{
+				if(i>=4)
+				{
+					var row=table.insertRow();
+					for(var j=0;j<val;j++)
+					{
+						var cell=row.insertCell(j);
+					}
+				}
+				else {
+					var row=table.rows[i];
+					for(var j=0;j<val-4;j++)
+					{
+						table.rows[i].insertCell(j+4);
+					}
+				}
+			}
+			for(var i=0;i<val;i++){
+				for(var j=0;j<val;j++){
+						table.rows[i].cells[j].style.height=400/val + 'px';
+						table.rows[i].cells[j].style.width=400/val + 'px';
+				}
+			}
+		}
+		function set(event){
+			var val=document.getElementById('set').value;
+			setSize(val);
+		}
+		function slide(event){
+			var table=document.getElementById('table');
+			var rows=table.rows.length;
+			var count=0;
+			var count1=0;
+			var arr=[];
+			for(var i=0;i<rows;i++)
+			{
+				arr[i]=[];
+				for(var j=0;j<rows;j++)
+				{
+					arr[i][j]=0;
+				}
+			}
+			if(event.key=="ArrowLeft")
+			{
+				for(var i=0;i<rows;i++)
+				{
+					for(var j=1;j<rows;j++)
+					{
+						var k=j;
+						while(k>=1)
+						{
+							var f=table.rows[i].cells[k-1].innerHTML;
+							var s=table.rows[i].cells[k].innerHTML;
+							if(!f && s)
+							{
+								table.rows[i].cells[k-1].innerHTML=s;
+								table.rows[i].cells[k].innerHTML="";
+							}
+							else if((f && s) && (f==s) && arr[i][k-1]==0 && arr[i][k]==0){
+								table.rows[i].cells[k-1].innerHTML=2*(parseInt(f));
+								score.innerText=parseFloat(score.innerText)+2*(parseInt(f));
+								table.rows[i].cells[k].innerHTML="";
+								arr[i][k-1]=1;
+							}
+							k--;
+						}
+						
+					}
+				}
+			}
+			if(event.key=="ArrowRight")
+			{
+				for(var i=0;i<rows;i++)
+				{
+					for(var j=rows-1;j>=0;j--)
+					{
+						var k=j;
+						while(k<rows-1)
+						{
+							var f=table.rows[i].cells[k+1].innerHTML;
+							var s=table.rows[i].cells[k].innerHTML;
+							if(!f && s)
+							{
+								table.rows[i].cells[k+1].innerHTML=s;
+								table.rows[i].cells[k].innerHTML="";
+							}
+							else if((f && s) && (f==s) && arr[i][k]==0 && arr[i][k+1]==0){
+								table.rows[i].cells[k+1].innerHTML=2*(parseInt(f));
+								table.rows[i].cells[k].innerHTML="";
+								score.innerText=parseFloat(score.innerText)+2*(parseInt(f));
+								arr[i][k+1]=1;
+							}
+							k++;
+						}
+						
+					}
+					
+				}
+
+			}
+			if(event.key=="ArrowUp")
+			{
+				for(var j=0;j<rows;j++)
+				{
+					for(var i=1;i<rows;i++)
+					{
+						var k=i;
+						while(k>=1)
+						{
+							var f=table.rows[k-1].cells[j].innerHTML;
+							var s=table.rows[k].cells[j].innerHTML;
+							if(!f && s)
+							{
+								table.rows[k-1].cells[j].innerHTML=s;
+								table.rows[k].cells[j].innerHTML="";
+							}
+							else if((f && s) && (f==s) && arr[k-1][j]==0 && arr[k][j]==0){
+								table.rows[k-1].cells[j].innerHTML=2*(parseInt(f));
+								table.rows[k].cells[j].innerHTML="";
+								score.innerText=parseFloat(score.innerText)+2*(parseInt(f));
+								arr[k-1][j]=1;
+							}
+							k--;
+						}
+						
+					}
+					
+				}
+			}
+			if(event.key=="ArrowDown")
+			{
+				for(var j=0;j<rows;j++)
+				{
+					for(var i=0;i<rows-1;i++)
+					{
+						var k=i;
+						while(k<rows-1)
+						{
+							var f=table.rows[k+1].cells[j].innerHTML;
+							var s=table.rows[k].cells[j].innerHTML;
+							if(!f && s)
+							{
+								table.rows[k+1].cells[j].innerHTML=s;
+								table.rows[k].cells[j].innerHTML="";
+							}
+							else if((f && s) && (f==s) && arr[k+1][j]==0 && arr[k][j]==0){
+								table.rows[k+1].cells[j].innerHTML=2*(parseInt(f));
+								table.rows[k].cells[j].innerHTML="";
+								score.innerText=parseFloat(score.innerText)+2*(parseInt(f));
+								arr[k+1][j]=1;
+							}
+							k++;
+						}
+						
+					}
+					
+				}
+			}
+			if(parseFloat(score.innerText)>parseFloat(score1.innerText)){
+				score1.innerText=score.innerText;
+			}
+			var cs=1;
+			var cd=0;
+			for(var i=0;i<rows;i++)
+			{
+				for(var j=0;j<rows;j++)
+				{
+					if(!table.rows[i].cells[j].innerHTML){
+						table.rows[i].cells[j].style.backgroundColor="rgb(205, 193, 180)";	
+						cs++;
+					}
+					else if(table.rows[i].cells[j].innerHTML=="2")
+					{
+						table.rows[i].cells[j].style.backgroundColor="rgb(238, 228, 218)";
+					}
+					else if(table.rows[i].cells[j].innerHTML=="4")
+					{
+						table.rows[i].cells[j].style.backgroundColor="rgb(237, 224, 200)";
+					}
+					else if(table.rows[i].cells[j].innerHTML=="8")
+					{
+						table.rows[i].cells[j].style.backgroundColor="rgb(242, 177, 121)";
+					}
+					else if(table.rows[i].cells[j].innerHTML=="16")
+					{
+						table.rows[i].cells[j].style.backgroundColor="rgb(245, 149, 99)";
+					}
+					else if(table.rows[i].cells[j].innerHTML=="32")
+					{
+						table.rows[i].cells[j].style.backgroundColor="#f67c5f";
+					}
+					else if(table.rows[i].cells[j].innerHTML=="64")
+					{
+						table.rows[i].cells[j].style.backgroundColor="#f65e3b";
+					}
+					else if(table.rows[i].cells[j].innerHTML=="128")
+					{
+						table.rows[i].cells[j].style.backgroundColor="#edcf72";
+					}
+					else if(table.rows[i].cells[j].innerHTML=="256")
+					{
+						table.rows[i].cells[j].style.backgroundColor="#edcc61";
+					}
+					else if(table.rows[i].cells[j].innerHTML=="512")
+					{
+						table.rows[i].cells[j].style.backgroundColor="rgba(106, 237, 97, 0.48)";
+					}
+					else if(table.rows[i].cells[j].innerHTML=="1024")
+					{
+						table.rows[i].cells[j].style.backgroundColor="rgba(142, 100, 243, 0.58)";
+					}
+					else if(table.rows[i].cells[j].innerHTML=="2048")
+					{
+						table.rows[i].cells[j].style.backgroundColor="rgb(143, 122, 102)";
+					}
+					else {
+						table.rows[i].cells[j].style.backgroundColor="grey";
+					}
+				}
+			}
+			insert();
+		}
+		function insert(){
+			var rows=table.rows.length;
+			var cs=0;
+			var cd=0;
+			for(var i=0;i<rows;i++){
+					for(var j=0;j<rows;j++){
+						if(!table.rows[i].cells[j].innerHTML){
+							cs=1;
+							break;
+						}
+					}
+				}
+			if(!cs){
+			for(var i=0;i<rows-1;i++){
+					for(var j=0;j<rows-1;j++){
+						if(table.rows[i].cells[j].innerHTML==table.rows[i+1].cells[j].innerHTML || table.rows[i].cells[j].innerHTML==table.rows[i].cells[j+1].innerHTML){
+							cd=1;
+							break;
+						}
+					}
+				for(var i=0;i<rows-1;i++){
+					if(table.rows[i].cells[rows-1].innerHTML==table.rows[i+1].cells[rows-1].innerHTML || table.rows[rows-1].cells[i].innerHTML==table.rows[rows-1].cells[i+1].innerHTML){
+						cd=1;
+						break;
+					}
+				}
+				if(cd)
+				return;
+			}
+			}
+			if(!cs && !cd){
+				$(".error-messages").text("Game Over").fadeIn();
+			}
+			else if(!cs && cd)
+				return;
+			else{
+				var cs=0;
+				while(true){
+					var row = Math.floor(Math.random() * rows);
+	    			var col = Math.floor(Math.random() * rows);
+	    			if(!table.rows[row].cells[col].innerHTML){
+	    				table.rows[row].cells[col].innerHTML="2";
+	    				table.rows[row].cells[col].style.backgroundColor="rgb(238, 228, 218)"
+	    				break;
+	    			}
+				}
+			}
+		}
+		function start(event){
+			document.getElementsByClassName('error-messages')[0].style.display="none";
+			score.innerText="0";
+			var table=document.getElementById('table');
+			var rows=table.rows.length;
+			for(var i=0;i<rows;i++){
+					for(var j=0;j<rows;j++){
+							table.rows[i].cells[j].innerHTML="";
+							table.rows[i].cells[j].style.backgroundColor="rgb(205, 193, 180)";
+					}
+				}
+			document.body.addEventListener('keydown',slide);
+			insert();
+			insert();
+		}
+		function reset1(event){
+			var table=document.getElementById('table');
+			var rows=table.rows.length;
+			for(var i=0;i<rows;i++){
+					for(var j=0;j<rows;j++){
+							table.rows[i].cells[j].innerHTML="";
+							table.rows[i].cells[j].style.backgroundColor="rgb(205, 193, 180)";
+					}
+				}
+				score.innerText="0";
+		}
+		setSize(4);
+		var s=document.getElementById('s');
+		s.addEventListener('click',set);
+		var button=document.getElementById('a');
+		button.addEventListener('click',start);
+	});
+</script>
+</html>
