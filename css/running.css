@@ -1,0 +1,249 @@
+.run{
+    width: 10%;
+}
+.body {
+  width: 10px;
+  height: 30px;
+  margin: 20px;
+  position: relative;
+}
+.body .arm {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    z-index: 1;
+    width: 10px;
+    height: 100%
+}
+.body .arm .left-hand {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    z-index: 2;
+    width: 6px;
+    height: 20px;
+    transform-origin: 50% 0;
+    background: #666
+}
+.body .arm .left-hand .wrist {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    display: block;
+    z-index: 0;
+    width: 6px;
+    border-radius: 6px;
+    height: 20px;
+    transform-origin: 50% 0;
+    background: #666
+}
+.body .arm .chest {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background: #333
+}
+.body .arm .chest .head {
+    position: absolute;
+    top: -22px;
+    right: 0;
+    left: 0;
+    display: block;
+    z-index: 0;
+    margin-left: -5px;
+    border-radius: 100%;
+    width: 20px;
+    height: 20px;
+    background: #333
+}
+.body .arm .chest .head .neck {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    display: block;
+    z-index: 0;
+    margin: auto;
+    width: 6px;
+    height: 4px;
+    background: #333
+}
+.body .arm .right-hand {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    z-index: 0;
+    width: 6px;
+    height: 20px;
+    transform-origin: 50% 0;
+    background: #36e
+}
+.body .arm .right-hand .wrist {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    display: block;
+    z-index: 0;
+    width: 6px;
+    border-radius: 6px;
+    height: 20px;
+    transform-origin: 50% 0;
+    background: #36e
+}
+.body .hip {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    display: block;
+    z-index: 0;
+    width: 10px;
+    height: 0
+}
+.body .hip .left-leg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    z-index: 1;
+    width: 6px;
+    height: 20px;
+    transform-origin: 50% 0;
+    background: #333
+}
+.body .hip .left-leg .instep {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    display: block;
+    z-index: 0;
+    width: 6px;
+    height: 20px;
+    transform-origin: 50% 0;
+    background: #333
+}
+.body .hip .right-leg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    z-index: 0;
+    width: 6px;
+    height: 20px;
+    transform-origin: 50% 0;
+    background: #333
+}
+.body .hip .right-leg .instep {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    display: block;
+    z-index: 0;
+    width: 6px;
+    height: 20px;
+    transform-origin: 50% 0;
+    background: #f60
+}
+
+@keyframes left-hand-running {
+    from, to {
+        transform: rotate3d(0, 0, 1, 60deg)
+    }
+    40% {
+        transform: rotate3d(0, 0, 1, -30deg)
+    }
+}
+@keyframes left-hand-wrist-running {
+    from, to {
+        transform: rotate3d(0, 0, 1, -60deg)
+    }
+    50% {
+        transform: rotate3d(0, 0, 1, -90deg)
+    }
+}
+.run .body .arm .left-hand {
+    animation: left-hand-running 0.52s ease 0s infinite both
+}
+.run .body .arm .left-hand .wrist {
+    animation: left-hand-wrist-running 0.52s ease 0s infinite both
+}
+@keyframes right-hand-running {
+    from, to {
+        transform: rotate3d(0, 0, 1, -30deg)
+    }
+    40% {
+        transform: rotate3d(0, 0, 1, 60deg)
+    }
+}
+@keyframes right-hand-wrist-running {
+    from, to {
+        transform: rotate3d(0, 0, 1, -90deg)
+    }
+    50% {
+        transform: rotate3d(0, 0, 1, -60deg)
+    }
+}
+
+.run .body .arm .right-hand .wrist {
+    animation: right-hand-wrist-running 0.52s ease 0s infinite both;
+}
+.run .body .arm .right-hand {
+    animation: right-hand-running 0.52s ease 0s infinite both;
+}
+
+@keyframes left-leg-running {
+    from, to {
+        transform: rotate3d(0, 0, 1, -40deg)
+    }
+    40% {
+        transform: rotate3d(0, 0, 1, 35deg)
+    }
+}
+@keyframes left-leg-instep-running {
+    from, to {
+        transform: rotate3d(0, 0, 1, 10deg)
+    }
+    50% {
+        transform: rotate3d(0, 0, 1, 45deg)
+    }
+}
+.run .body .hip .left-leg .instep {
+    animation: left-leg-instep-running 0.52s ease 0s infinite both
+}
+.run .body .hip .left-leg {
+    animation: left-leg-running 0.52s ease 0s infinite both
+}
+
+@keyframes right-leg-running {
+    from, to {
+        transform: rotate3d(0, 0, 1, 35deg)
+    }
+    40% {
+        transform: rotate3d(0, 0, 1, -40deg)
+    }
+}
+
+@keyframes right-leg-instep-running {
+    from, to {
+        transform: rotate3d(0, 0, 1, 45deg)
+    }
+    50% {
+        transform: rotate3d(0, 0, 1, 10deg)
+    }
+}
+.run .body .hip .right-leg .instep {
+    animation: right-leg-instep-running 0.52s ease 0s infinite both
+}
+.run .body .hip .right-leg {
+    animation: right-leg-running 0.52s ease 0s infinite both
+}
