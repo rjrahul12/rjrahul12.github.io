@@ -87,7 +87,6 @@
 			font-size: 40px;
 			text-align: center;
 			box-sizing: border-box;
-
 	}
 
 	div.error-messages{
@@ -224,35 +223,27 @@
 		score.innerText="0";
 		score1.innerText="0";
 		function setSize(val){
-			for(var i=0;i<val;i++)
-			{
-				if(i>=4)
-				{
+			table.innerHTML="";
+			for(var i=0;i<val;i++){
 					var row=table.insertRow();
 					for(var j=0;j<val;j++)
 					{
 						var cell=row.insertCell(j);
 					}
-				}
-				else {
-					var row=table.rows[i];
-					for(var j=0;j<val-4;j++)
-					{
-						table.rows[i].insertCell(j+4);
-					}
-				}
 			}
 			for(var i=0;i<val;i++){
 				for(var j=0;j<val;j++){
 						table.rows[i].cells[j].style.height=400/val + 'px';
 						table.rows[i].cells[j].style.width=400/val + 'px';
+						table.rows[i].cells[j].style["font-size"]=0.4*(400/val)+'px';
+						table.rows[i].cells[j].style["border-width"]=0.08*(400/val)+'px';
 				}
 			}
 		}
 		function set(event){
 			var val=document.getElementById('set').value;
 			var s=document.getElementById('s');
-			s.disabled=true;
+			// s.disabled=true;
 			setSize(val);
 		}
 		function slide(event){
