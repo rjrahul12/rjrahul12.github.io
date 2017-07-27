@@ -239,6 +239,7 @@
 						table.rows[i].cells[j].style["border-width"]=0.08*(400/val)+'px';
 				}
 			}
+			start();
 		}
 		function set(event){
 			var val=document.getElementById('set').value;
@@ -287,6 +288,7 @@
 						
 					}
 				}
+				insert();
 			}
 			if(event.key=="ArrowRight")
 			{
@@ -316,7 +318,7 @@
 					}
 					
 				}
-
+				insert();
 			}
 			if(event.key=="ArrowUp")
 			{
@@ -346,6 +348,7 @@
 					}
 					
 				}
+				insert();
 			}
 			if(event.key=="ArrowDown")
 			{
@@ -375,6 +378,7 @@
 					}
 					
 				}
+				insert();
 			}
 			if(parseFloat(score.innerText)>parseFloat(score1.innerText)){
 				score1.innerText=score.innerText;
@@ -438,7 +442,6 @@
 					}
 				}
 			}
-			insert();
 		}
 		function insert(){
 			var rows=table.rows.length;
