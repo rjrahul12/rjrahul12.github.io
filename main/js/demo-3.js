@@ -1,3 +1,4 @@
+$(document).ready(function(){
 (function() {
 
     var width, height, largeHeader, canvas, ctx, triangles, target, animateHeader = true;
@@ -123,4 +124,6 @@
         this.init = init;
     }
     
-})();
+    })();
+
+});

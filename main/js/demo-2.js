@@ -1,3 +1,4 @@
+$(document).ready(function(){
 (function() {
 
     var width, height, largeHeader, canvas, ctx, circles, target, animateHeader = true;
@@ -89,4 +90,5 @@
         };
     }
 
-})();
+    })();
+});
