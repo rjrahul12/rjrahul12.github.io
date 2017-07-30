@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title> Calendar</title>
+	<title> Calendar </title>
 </head>
 <body>
 	<center><div class="out">
@@ -156,7 +156,9 @@
       line-height: 40px;
 	}
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
+	$(document).ready(function(){
 	function change(d1){
 		var monthNames = ["January", "February", "March", "April", "May", "June",
   		"July", "August", "September", "October", "November", "December"];
@@ -202,12 +204,12 @@
 			var d3=new Date(d1.getFullYear(),d1.getMonth(),1);
 			var days1=d3.getDay();
 			if(y==d1.getFullYear() && m==d1.getMonth()){
-			td[cur+days1-1].style.backgroundColor="#ef4f69";
-			td[cur+days1-1].style.color="white";
+			td[(cur+days1-1)%35].style.backgroundColor="#ef4f69";
+			td[(cur+days1-1)%35].style.color="white";
 			}
 			else{
-				td[cur+days1-1].style.backgroundColor="white";
-				td[cur+days1-1].style.color="black";
+				td[(cur+days1-1)%35].style.backgroundColor="white";
+				td[(cur+days1-1)%35].style.color="black";
 			}
 			s1.innerHTML=monthNames[m];
 			s2.innerHTML=y;
@@ -242,6 +244,6 @@
 	}
 	var d1=new Date();
 	change(d1);
-	
+	});
 </script>
 </html>
